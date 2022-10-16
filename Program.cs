@@ -442,7 +442,30 @@ while (applicationRunning)
                 
 
                 {
-                    //2
+                    Logo.ClearScreen();
+                    Console.WriteLine();
+                    Console.WriteLine("Name" + "                   " + "Pris");
+                    Console.WriteLine("---------------------------------------------");
+
+                    foreach (var c in categoriesList)
+                    {
+                        Console.WriteLine(c.Name + " (" + c.GetCategoriesProducts().Count + "):");
+                        Console.WriteLine();
+                        foreach (var p in c.GetCategoriesProducts())
+                        {
+                            Console.WriteLine("    " + p.Name + "          " + p.Price);
+                            Console.WriteLine();
+
+                        }
+                    }
+                    Console.CursorVisible = false;
+
+                    do
+                    {
+                        userInput = Console.ReadKey(true);
+
+                    } while (userInput.Key != ConsoleKey.Escape);
+
 
                     break;
                 }
