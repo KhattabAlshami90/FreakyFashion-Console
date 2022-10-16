@@ -369,7 +369,68 @@ while (applicationRunning)
             case ConsoleKey.D4:
             case ConsoleKey.NumPad4:
                 {
-                   //1
+                    Logo.ClearScreen();
+
+                    Console.Write($"Artikelnummer: ");
+                    string productToAdd = Console.ReadLine().ToLower();
+
+                    bool isFound = false;
+
+                    if (productsList.ContainsKey(productToAdd))
+                    {
+                        isFound = true;
+                        product = productsList[productToAdd];
+                    }
+                    if (!isFound)
+                    {
+                        Console.WriteLine();
+                        ErrorMsg("Produkt finns inte . . .");
+
+                        break;
+                    }
+
+                    Logo.ClearScreen();
+                    Console.WriteLine();
+                    Console.WriteLine("Produkt: " + product.Number);
+                    Console.WriteLine();
+                    Console.Write("Ange kategori:");
+                    string categoryNameP = Console.ReadLine();
+
+                    bool isCatFound = false;
+
+
+                    foreach (var c in categoriesList)
+                    {
+                        if (c.Name == categoryNameP)
+                        {
+                            isCatFound = true;
+                            category = c;
+                            break;
+                        }
+                    }
+                    if (!isCatFound)
+                    {
+                        ErrorMsg("Kategori finns ej");
+                        break;
+                    }
+
+                    if (isCatFound)
+                    {
+
+                        try
+                        {
+                            category.AddProduct(product);
+                            ConfirmMsg("produkt tillagd");
+                            break;
+                        }
+
+                        catch (Exception ex)
+                        {
+                            ErrorMsg(ex.Message);
+                            break;
+                        }
+                    }
+
                     break;
                 }
 
